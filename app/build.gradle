@@ -47,6 +47,12 @@ dependencies {
     // retrofit 2
     implementation 'com.squareup.retrofit2:retrofit:2.7.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
+
+    //RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.18'
+    //RxAndroid
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
 
     testImplementation 'junit:junit:4.+'
