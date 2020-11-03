@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
 import com.medium.rickandmorty.R
 import com.medium.rickandmorty.data.remote.helper.CharacterHelper
 import com.medium.rickandmorty.data.remote.model.CharacterResponseModel
@@ -20,35 +21,19 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var mainRepository: MainRepository
-    lateinit var characterHelper: CharacterHelper
+ private lateinit var  mainViewModel: MainViewModel
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val retrofit = Retrofit.Builder()
-                .baseUrl("https://rickandmortyapi.com/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // burası eklendi
-                .build()
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        val service: CharacterService = retrofit.create(CharacterService::class.java)
+        mainViewModel.characters.observe(this,{
+            println(it.toString())
+        })
 
-
-        characterHelper = CharacterHelper(service)
-        mainRepository = MainRepository(characterHelper)
-
-        mainRepository.getAllCharacters()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    result -> println(result.toString())
-                },{
-                    error -> println(error.message.toString())
-                })
-
-
+        mainViewModel.getAllCharacters()
     }
 }
