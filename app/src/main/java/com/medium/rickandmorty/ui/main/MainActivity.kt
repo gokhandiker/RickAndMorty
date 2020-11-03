@@ -1,7 +1,8 @@
-package com.medium.rickandmorty
+package com.medium.rickandmorty.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.medium.rickandmorty.R
 import com.medium.rickandmorty.data.remote.model.CharacterResponseModel
 import com.medium.rickandmorty.data.remote.service.CharacterService
 import retrofit2.Call
