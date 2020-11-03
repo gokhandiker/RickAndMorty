@@ -4,8 +4,9 @@ import com.medium.rickandmorty.data.remote.helper.CharacterHelper
 import com.medium.rickandmorty.data.remote.model.CharacterResponseModel
 import io.reactivex.Observable
 import retrofit2.Call
+import javax.inject.Inject
 
-class MainRepository(private val characterHelper: CharacterHelper) {
+class MainRepository @Inject constructor(private val characterHelper: CharacterHelper) {
     fun getAllCharacters(): Observable<CharacterResponseModel> {
         return characterHelper.getAllCharacters()
     }
